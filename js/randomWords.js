@@ -134,6 +134,7 @@ function animateOptions()
 $(document).ready(function()
 {
     $("#checkAnswer").prop('disabled', true);
+    
     getWordAndAnswer();
     
     $("#checkAnswer").click(function()
@@ -141,27 +142,58 @@ $(document).ready(function()
         selectedAnswer = $("#selectAnswers option:selected").text();
         $.ajax({
                     url: "http://peaceful-thicket-5170.herokuapp.com/getWordAndAnswer/checkAnswer?word=" + word + "&answer=" + selectedAnswer,
-            context: document.body
-                    
-                }).done(function(data) 
-                {
-                    console.log(data.toString());
-                    /*if(data.toString() == correct)
+                    dataType: "text",
+                    success: function(data)
                     {
+                        if(data == correct)
+                        {
+                            setTimeout( function() 
+                            {
 
-                        alert("CORRECT");
-                        //window.location.reload();
-                    }
-                    else if(data.toString() == incorrect)
-                    {
-                        alert("INCORRECT");
-                    }
-                    else
-                    {
-                        alert("Some error occurred!");
-                    }*/
+                                // create the notification
+                                var notification = new NotificationFx({
+                                    message : '<span class="icon icon-megaphone"></span><p>You are correct. Get <a href="#">ready</a> for <a href="#">another one</a> now.</p>',
+                                    layout : 'bar',
+                                    effect : 'slidetop',
+                                    type : 'notice', // notice, warning or error
+                                    onClose : function() {
+                                        window.location.reload();
+                                    }
+                                });
 
-                });
+                                // show the notification
+                                notification.show();
+
+                            }, 1200 );
+                        }
+                        else
+                        {
+                            setTimeout( function() 
+                            {
+
+                                // create the notification
+                                var notification = new NotificationFx({
+                                    message : '<span class="icon icon-bulb"></span><p>Your answer is incorrect. The answer is <a href="#">' + answer + '</a> Try again, now!</p>',
+                                    layout : 'bar',
+                                    effect : 'slidetop',
+                                    type : 'error', // notice, warning or error
+                                    onClose : function() {
+                                        window.location.reload();
+                                    }
+                                });
+
+                                // show the notification
+                                notification.show();
+
+                            }, 1200 );
+                        }
+                    },
+                    error: function(result)
+                    {
+                        
+                        console.log("\n Error \nStatus -- " + result.status + "\n Error Message -- " + result.responseText) 
+                    }
+                })
     });
     
 });
