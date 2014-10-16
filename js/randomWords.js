@@ -36,14 +36,17 @@ function getWordAndAnswer()
                 })
                 
                 answers = $.unique(tempAnswers);
-                
+        
                 console.log("\n Size of Json returned from backend (Number of words) -- " + count);
         
                 wordPosition = getRandomInt(zero, count);
                 word = words[wordPosition];
                 answer = getAnswer(JsonData, word);
         
-                allOptions = $.unique(getRandomAnswer(answers, answer, count-1));
+                allOptions = getOptionsWithoutAnswer($.unique(getRandomAnswer(answers, answer)), answer);
+        
+                console.log("answers without answer -- " + answers); 
+        
         
                 for(var i = 0; i < 4; i++)
                 {
@@ -80,7 +83,7 @@ function getAnswer(JsonData, word)
     return answer;
 }
 
-function getRandomAnswer(answers, answer, count)
+function getRandomAnswer(answers, answer)
 {
     var tempOptions = [];
     console.log("\n Answers -- " + answers);
@@ -104,6 +107,16 @@ function shuffleOptions(options)
     var shuffledOptions = [];
     shuffledOptions = window.knuthShuffle(options.slice(0));
     return shuffledOptions;
+}
+
+function getOptionsWithoutAnswer(allOptions, answer)
+{
+    var optionsWithoutAnswer = $.grep(allOptions, function(value)
+                                        {
+                                            return (value !== answer);    
+                                        });
+    return optionsWithoutAnswer;
+    
 }
 
 function appendOptions(options)
