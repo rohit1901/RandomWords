@@ -16,7 +16,9 @@
 		<link rel="stylesheet" type="text/css" href="css/cs-skin-slide.css" />
         <link rel="stylesheet" type="text/css" href="css/ns-style-bar.css" />
         <link rel="stylesheet" type="text/css" href="css/notification-demo.css" />
+        <link rel="stylesheet" type="text/css" href="css/component-pageload.css" />
         <script src="js/modernizr.custom-notification.js"></script>
+        <script src="js/snap.svg-min.js"></script>
 		<!--[if IE]>
   		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -32,11 +34,11 @@
 			<section>
 				<label class="select-label" id="select-label">Travel Type</label>
 				<select class="cs-select cs-skin-slide" id="selectAnswers">
-					<option value="option1" data-class="icon-camera" id="option0">Option 0</option>
-					<option value="option2" data-class="icon-money" id="option1">Option 1</option>
-					<option value="option3" data-class="icon-heart" id="option2">Option 2</option>
-					<option value="option4" data-class="icon-food" id="option3">Option 3</option>
-					<option value="option5" data-class="icon-shirt" id="option4">Option 4</option>
+					<option value="option0" id="option0">Option 0</option>
+					<option value="option1" id="option1">Option 1</option>
+					<option value="option2" id="option2">Option 2</option>
+					<option value="option3" id="option3">Option 3</option>
+					<option value="option4" id="option4">Option 4</option>
 				</select>
 			</section>
 			<!-- Related demos -->
@@ -44,6 +46,11 @@
                 <button id="checkAnswer"><h3>Check Answer</h3></button>
 			</section>
 		</div><!-- /container -->
+        <div id="loader" class="pageload-overlay" data-opening="M20,15 50,30 50,30 30,30 Z;M0,0 80,0 50,30 20,45 Z;M0,0 80,0 60,45 0,60 Z;M0,0 80,0 80,60 0,60 Z" data-closing="M0,0 80,0 60,45 0,60 Z;M0,0 80,0 50,30 20,45 Z;M20,15 50,30 50,30 30,30 Z;M30,30 50,30 50,30 30,30 Z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60" preserveAspectRatio="none">
+                <path d="M30,30 50,30 50,30 30,30 Z"/>
+            </svg>
+        </div><!-- /pageload-overlay -->
         <script src="js/classie.js"></script>
 		<script src="js/selectFx.js"></script>
         <script src="js/classie-notification.js"></script>
@@ -51,6 +58,7 @@
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="js/knuth-shuffle.js"></script>
         <script src="js/randomWords.js"></script>
+        <script src="js/svgLoader.js"></script>
    
 	</body>
 </html>

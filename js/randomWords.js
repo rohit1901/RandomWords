@@ -27,42 +27,60 @@ function getWordAndAnswer()
             {
                 JsonData = $.parseJSON(JSON.stringify(data));
                 
-                //Creates an array of words.
-                $.each(JsonData, function(key, value)
-                {
-                    words[count] = key;
-                    tempAnswers[count] = value;
-                    count++;
-                })
-                
-                answers = $.unique(tempAnswers);
-        
-                console.log("\n Size of Json returned from backend (Number of words) -- " + count);
-        
-                wordPosition = getRandomInt(zero, count);
-                word = words[wordPosition];
-                answer = getAnswer(JsonData, word);
-        
-                allOptions = getOptionsWithoutAnswer($.unique(getRandomAnswer(answers, answer)), answer);
-        
-                console.log("answers without answer -- " + answers); 
-        
-        
-                for(var i = 0; i < 4; i++)
-                {
-                    options[i] = allOptions[i];
-                }
-                
-                options[4] = answer;
-                                
-                options = shuffleOptions(options);
-        
-                console.log("\n Selected Word -- " + word + ", Answer -- " + answer);
-        
-                displayWordAsQuestion(word);
-                appendOptions(options);
+                setWordsAndAnswers(JsonData);
         
             });
+}
+
+function setWordsAndAnswers(JsonData)
+{
+    var tempAnswers = [];
+    //Creates an array of words.
+    $.each(JsonData, function(key, value)
+    {
+        words[count] = key;
+        tempAnswers[count] = value;
+        count++;
+    })
+
+    answers = $.unique(tempAnswers);
+
+    console.log("\n Size of Json returned from backend (Number of words) -- " + count);
+
+    wordPosition = getRandomInt(zero, count);
+    word = words[wordPosition];
+    answer = getAnswer(JsonData, word);
+
+    allOptions = getOptionsWithoutAnswer($.unique(getRandomAnswer(answers, answer)), answer);
+
+    console.log("answers without answer -- " + answers); 
+
+
+    for(var i = 0; i < 4; i++)
+    {
+        options[i] = allOptions[i];
+    }
+
+    options[4] = answer;
+
+    options = shuffleOptions(options);
+
+    console.log("\n Selected Word -- " + word + ", Answer -- " + answer);
+
+    displayWordAsQuestion(word);
+    appendOptions(options);
+}
+
+function resetWordsAndAnswers()
+{
+    words = [];
+    count = zero;
+    answers = [];
+    wordPosition = zero;
+    word = "No Word";
+    answer = "No Answer";
+    allOptions = [];
+    options = [];
 }
 
 function getRandomInt(min, max) 
@@ -132,6 +150,17 @@ function appendOptions(options)
     $("#checkAnswer").prop('disabled', false);
 }
 
+function removeOptions()
+{
+    $("#option0").text("");
+    $("#option1").text("");
+    $("#option2").text("");
+    $("#option3").text("");
+    $("#option4").text("");
+    
+    animateOptions();
+}
+
 function displayWordAsQuestion(word)
 {
     $("#select-label").text(word);
@@ -163,14 +192,24 @@ $(document).ready(function()
                             setTimeout( function() 
                             {
 
+                                var loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 100 } );
                                 // create the notification
                                 var notification = new NotificationFx({
                                     message : '<span class="icon icon-megaphone"></span><p>You are correct. Get <a href="#">ready</a> for <a href="#">another one</a> now.</p>',
                                     layout : 'bar',
                                     effect : 'slidetop',
                                     type : 'notice', // notice, warning or error
-                                    onClose : function() {
-                                        window.location.reload();
+                                    onClose : function() 
+                                    {
+                                        $("#selectAnswers").attr('disabled', true);
+                                        loader.show();
+					
+                                        setTimeout( function() 
+                                                    {
+                                                        loader.hide();
+                                                        window.location.reload();
+                                                    },2000);
+                                        //window.location.reload();
                                     }
                                 });
 
@@ -183,15 +222,23 @@ $(document).ready(function()
                         {
                             setTimeout( function() 
                             {
-
+                                var loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 100 } );
                                 // create the notification
                                 var notification = new NotificationFx({
                                     message : '<span class="icon icon-bulb"></span><p>Your answer is incorrect. The answer is <a href="#">' + answer + '</a> Try again, now!</p>',
                                     layout : 'bar',
                                     effect : 'slidetop',
                                     type : 'error', // notice, warning or error
-                                    onClose : function() {
-                                        window.location.reload();
+                                    onClose : function() 
+                                    {
+                                        loader.show();
+					
+                                        setTimeout( function() 
+                                                    {
+                                                        loader.hide();
+                                                        window.location.reload();
+                                                    },2000);
+                                        //window.location.reload();
                                     }
                                 });
 
