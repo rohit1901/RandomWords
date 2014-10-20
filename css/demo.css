@@ -228,7 +228,7 @@ body #cdawrap {
 	right: 30px;
 }
 
-@media screen and (max-width: 30em) {
+@media screen and (max-width: 2000em) {
 
 	body::before,
 	body::after {
