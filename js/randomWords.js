@@ -168,9 +168,12 @@ function displayWordAsQuestion(word)
 
 function animateOptions()
 {
-    [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {	
-					new SelectFx(el);
-				} );
+    [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) 
+                    {	
+				        new SelectFx(el);
+                    } );
+    
+    //alert(array.remove());
 }
 
 $(document).ready(function()
@@ -181,6 +184,8 @@ $(document).ready(function()
     
     $("#checkAnswer").click(function()
     {
+        
+        $("#checkAnswer").prop('disabled', true);
         selectedAnswer = $("#selectAnswers option:selected").text();
         $.ajax({
                     url: "http://peaceful-thicket-5170.herokuapp.com/getWordAndAnswer/checkAnswer?word=" + word + "&answer=" + selectedAnswer,
@@ -191,7 +196,7 @@ $(document).ready(function()
                         {
                             setTimeout( function() 
                             {
-
+                                
                                 var loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 100 } );
                                 // create the notification
                                 var notification = new NotificationFx({
@@ -209,7 +214,6 @@ $(document).ready(function()
                                                         loader.hide();
                                                         window.location.reload();
                                                     },2000);
-                                        //window.location.reload();
                                     }
                                 });
 
