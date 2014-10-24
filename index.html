@@ -10,10 +10,8 @@
 		<meta name="author" content="Rohit Khanduri" />
 		<link rel="shortcut icon" href="../favicon.ico">
 		<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-		<link rel="stylesheet" type="text/css" href="css/demo.css" />
-		<link rel="stylesheet" type="text/css" href="css/cs-select.css" />
-		<link rel="stylesheet" type="text/css" href="css/cs-skin-slide.css" />
+		<link rel="stylesheet" type="text/css" href="css/style2.css" />
+		<script src="js/modernizr.custom.63321.js"></script>
         <link rel="stylesheet" type="text/css" href="css/ns-style-bar.css" />
         <link rel="stylesheet" type="text/css" href="css/notification-demo.css" />
         <link rel="stylesheet" type="text/css" href="css/component-pageload.css" />
@@ -23,29 +21,34 @@
   		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
     </head>
-	<body class="color-4">
-		<div class="container">
-			<!-- Top Navigation -->
+	<body>
+        
+        <div class="container">	
+			<!-- Codrops top bar -->
 			<div class="codrops-top clearfix">
-				<a class="codrops-icon codrops-icon-prev" href="www.rohitkhanduri.com"><span></span></a>
-				<span class="right"><a class="codrops-icon codrops-icon-drop" href="#"><span></span></a></span>
-			</div>
-			
-			<section>
-				<label class="select-label" id="select-label">Travel Type</label>
-				<select class="cs-select cs-skin-slide" id="selectAnswers">
-					<option value="option0" id="option0">Option 0</option>
-					<option value="option1" id="option1">Option 1</option>
-					<option value="option2" id="option2">Option 2</option>
-					<option value="option3" id="option3">Option 3</option>
-					<option value="option4" id="option4">Option 4</option>
-				</select>
+				
+			</div><!--/ Codrops top bar -->			
+			<header class="clearfix">
+				<h1>Improve your Vocabulary</h1>
+			</header>
+			<section class="main clearfix">
+				
+				<div class="fleft">
+					<select id="cd-dropdown" class="cd-select">
+						<option value="-1" selected>A new word coming up..</option>
+						<option value="1" id="option1" class="icon-google-plus">Google Plus</option>
+						<option value="2" id="option2" class="icon-facebook">Facebook</option>
+						<option value="3" id="option3" class="icon-twitter">Twitter</option>
+						<option value="4" id="option4" class="icon-github">GitHub</option>
+					</select>
+				</div>
 			</section>
-			<!-- Related demos -->
-			<section class="related" >
-                <button id="checkAnswer"><h3>Check Answer</h3></button>
+            
+            <section class="related" >
+                <button id="checkAnswer">Check Answer</button>
 			</section>
-		</div><!-- /container -->
+		</div>
+        <!-- /container -->
         <div id="loader" class="pageload-overlay" data-opening="M20,15 50,30 50,30 30,30 Z;M0,0 80,0 50,30 20,45 Z;M0,0 80,0 60,45 0,60 Z;M0,0 80,0 80,60 0,60 Z" data-closing="M0,0 80,0 60,45 0,60 Z;M0,0 80,0 50,30 20,45 Z;M20,15 50,30 50,30 30,30 Z;M30,30 50,30 50,30 30,30 Z">
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60" preserveAspectRatio="none">
                 <path d="M30,30 50,30 50,30 30,30 Z"/>
@@ -57,6 +60,7 @@
 		<script src="js/notificationFx.js"></script>
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="js/knuth-shuffle.js"></script>
+        <script type="text/javascript" src="js/jquery.dropdown.js"></script>
         <script src="js/randomWords.js"></script>
         <script src="js/svgLoader.js"></script>
    

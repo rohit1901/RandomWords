@@ -35,6 +35,9 @@ function getWordAndAnswer()
 function setWordsAndAnswers(JsonData)
 {
     var tempAnswers = [];
+    
+    resetWordsAndAnswers();
+    
     //Creates an array of words.
     $.each(JsonData, function(key, value)
     {
@@ -56,12 +59,12 @@ function setWordsAndAnswers(JsonData)
     console.log("answers without answer -- " + answers); 
 
 
-    for(var i = 0; i < 4; i++)
+    for(var i = 0; i < 3; i++)
     {
         options[i] = allOptions[i];
     }
 
-    options[4] = answer;
+    options[3] = answer;
 
     options = shuffleOptions(options);
 
@@ -69,6 +72,7 @@ function setWordsAndAnswers(JsonData)
 
     displayWordAsQuestion(word);
     appendOptions(options);
+    
 }
 
 function resetWordsAndAnswers()
@@ -139,13 +143,14 @@ function getOptionsWithoutAnswer(allOptions, answer)
 
 function appendOptions(options)
 {
-    $("#option0").text(options[0]);
-    $("#option1").text(options[1]);
-    $("#option2").text(options[2]);
-    $("#option3").text(options[3]);
-    $("#option4").text(options[4]);
     
-    animateOptions();
+    
+    $( "li span" ).filter(".icon-google-plus").text(options[0]);
+    $( "li span" ).filter(".icon-facebook").text(options[1]);
+    $( "li span" ).filter(".icon-twitter").text(options[2]);
+    $( "li span" ).filter(".icon-github").text(options[3]);
+        
+    //animateOptions();
     
     $("#checkAnswer").prop('disabled', false);
 }
@@ -163,17 +168,16 @@ function removeOptions()
 
 function displayWordAsQuestion(word)
 {
-    $("#select-label").text(word);
+    $(".cd-dropdown span").text(word);
 }
 
 function animateOptions()
 {
-    [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) 
-                    {	
-				        new SelectFx(el);
-                    } );
-    
-    //alert(array.remove());
+    $( '#cd-dropdown' ).dropdown( {
+					gutter : 5,
+					delay : 100,
+					random : true
+				} );
 }
 
 $(document).ready(function()
@@ -181,12 +185,20 @@ $(document).ready(function()
     $("#checkAnswer").prop('disabled', true);
     
     getWordAndAnswer();
+    animateOptions();
+    
+    $(".cd-dropdown").on('click','li',function ()
+    {
+        selectedAnswer = $(this).text();    
+    });
     
     $("#checkAnswer").click(function()
     {
         
-        $("#checkAnswer").prop('disabled', true);
-        selectedAnswer = $("#selectAnswers option:selected").text();
+        if(selectedAnswer != undefined)
+        {
+            $("#checkAnswer").prop('disabled', true);
+         
         $.ajax({
                     url: "http://peaceful-thicket-5170.herokuapp.com/getWordAndAnswer/checkAnswer?word=" + word + "&answer=" + selectedAnswer,
                     dataType: "text",
@@ -197,7 +209,7 @@ $(document).ready(function()
                             setTimeout( function() 
                             {
                                 
-                                var loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 100 } );
+                                
                                 // create the notification
                                 var notification = new NotificationFx({
                                     message : '<span class="icon icon-megaphone"></span><p>You are correct. Get <a href="#">ready</a> for <a href="#">another one</a> now.</p>',
@@ -206,13 +218,11 @@ $(document).ready(function()
                                     type : 'notice', // notice, warning or error
                                     onClose : function() 
                                     {
-                                        $("#selectAnswers").attr('disabled', true);
-                                        loader.show();
-					
+                                        
                                         setTimeout( function() 
                                                     {
-                                                        loader.hide();
-                                                        window.location.reload();
+                                                        setWordsAndAnswers(JsonData);
+                                                        
                                                     },2000);
                                     }
                                 });
@@ -226,7 +236,7 @@ $(document).ready(function()
                         {
                             setTimeout( function() 
                             {
-                                var loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 100 } );
+                                
                                 // create the notification
                                 var notification = new NotificationFx({
                                     message : '<span class="icon icon-bulb"></span><p>Your answer is incorrect. The answer is <a href="#">' + answer + '</a> Try again, now!</p>',
@@ -235,12 +245,9 @@ $(document).ready(function()
                                     type : 'error', // notice, warning or error
                                     onClose : function() 
                                     {
-                                        loader.show();
-					
                                         setTimeout( function() 
                                                     {
-                                                        loader.hide();
-                                                        window.location.reload();
+                                                        setWordsAndAnswers(JsonData);
                                                     },2000);
                                         //window.location.reload();
                                     }
@@ -258,6 +265,36 @@ $(document).ready(function()
                         console.log("\n Error \nStatus -- " + result.status + "\n Error Message -- " + result.responseText) 
                     }
                 })
+        }
+        
+        else
+        {
+            setTimeout( function() 
+            {
+
+                // create the notification
+                var notification = new NotificationFx({
+                    message : '<span class="icon icon-bulb"></span><p>Whoops! You forgot selecting a word..<a href="#">TRY AGAIN</a>!</p>',
+                    layout : 'bar',
+                    effect : 'slidetop',
+                    type : 'error', // notice, warning or error
+                    onClose : function() 
+                    {
+                        setTimeout( function() 
+                                    {
+                                        console.log("Answer not selected!");
+                                    },2000);
+                        //window.location.reload();
+                    }
+                });
+
+                // show the notification
+                notification.show();
+
+            }, 1200 );
+        }
+        
+        
     });
     
 });
