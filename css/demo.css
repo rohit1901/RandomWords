@@ -1,5 +1,5 @@
 /* General Demo Style */
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Bangers:300,400,700);
 
 *,
 *:after,
@@ -27,9 +27,9 @@
 }
 
 body {
-	font-family: 'Lato', Calibri, Arial, sans-serif;
+	font-family: 'Bangers', cursive;
 	background: #f4f4f4 url(../images/grid_DominikKiss_SubtlePatterns.jpg);
-	font-weight: 300;
+	font-weight: 700;
 	font-size: 15px;
 	color: #333;
 	overflow: scroll;
@@ -67,7 +67,7 @@ a {
 	line-height: 38px;
 	margin: 0;
 	font-weight: 700;
-	color: #333;
+	color: #FFF;
 	float: left;
 }
 
@@ -162,6 +162,7 @@ section {
 }
 
 .related > button {
+	font-family: 'Bangers', cursive;
 	border: 3px solid;
 	border-color: initial;
 	display: inline-block;
