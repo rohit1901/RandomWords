@@ -182,6 +182,17 @@ function animateOptions()
 
 $(document).ready(function()
 {
+    ion.sound({
+                sounds: [
+                    {name: "success"},
+                    {name: "error"}
+                ],
+                path: "sounds/",
+                preload: true,
+                volume: 1.0
+            });
+            
+    
     $("#checkAnswer").prop('disabled', true);
     
     getWordAndAnswer();
@@ -194,7 +205,6 @@ $(document).ready(function()
     
     $("#checkAnswer").click(function()
     {
-        
         if(selectedAnswer != undefined)
         {
             $("#checkAnswer").prop('disabled', true);
@@ -226,7 +236,8 @@ $(document).ready(function()
                                                     },2000);
                                     }
                                 });
-
+                                //play success sound
+                                ion.sound.play("error");
                                 // show the notification
                                 notification.show();
 
@@ -252,7 +263,8 @@ $(document).ready(function()
                                         //window.location.reload();
                                     }
                                 });
-
+                                //play error sound
+                                ion.sound.play("success");
                                 // show the notification
                                 notification.show();
 
@@ -287,7 +299,8 @@ $(document).ready(function()
                         //window.location.reload();
                     }
                 });
-
+                //play error sound
+                ion.sound.play("success");
                 // show the notification
                 notification.show();
 
