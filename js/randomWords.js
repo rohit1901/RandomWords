@@ -145,10 +145,10 @@ function appendOptions(options)
 {
     
     
-    $( "li span" ).filter(".icon-google-plus").text(options[0]);
-    $( "li span" ).filter(".icon-facebook").text(options[1]);
-    $( "li span" ).filter(".icon-twitter").text(options[2]);
-    $( "li span" ).filter(".icon-github").text(options[3]);
+    $( "li span" ).filter(".icon-sun").text(options[0]);
+    $( "li span" ).filter(".icon-cloudy").text(options[1]);
+    $( "li span" ).filter(".icon-weather").text(options[2]);
+    $( "li span" ).filter(".icon-lightning").text(options[3]);
         
     //animateOptions();
     
