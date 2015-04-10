@@ -26,8 +26,9 @@ function getWordAndAnswer()
             }).done(function(data) 
             {
                 JsonData = $.parseJSON(JSON.stringify(data));
-                
                 setWordsAndAnswers(JsonData);
+				
+				$(".loader").slideUp(5000);
         
             });
 }
